@@ -14,266 +14,28 @@ const ExternalLinkIcon = () => (
   </svg>
 )
 
-/* ── Project Visual Backgrounds ──────────────────────────────────────── */
+/* ── Project Visual ──────────────────────────────────────────────────── */
 const ProjectVisual = ({ project }: { project: Project }) => {
-  const visuals: Record<string, JSX.Element> = {
-    puddlex: (
-      <div className="w-full h-full" style={{
-        background: 'linear-gradient(135deg, #2A1226 0%, #3F1D38 40%, #5C2B52 70%, #1A0F17 100%)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center'
-      }}>
-        <div className="relative w-48 h-80 rounded-3xl border border-gold/20 overflow-hidden glass-plum flex flex-col p-4 gap-3">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-gold/20 flex items-center justify-center">
-              <div className="w-2 h-2 rounded-full bg-gold" />
-            </div>
-            <span className="text-gold text-xs font-medium">PuddleX</span>
-          </div>
-          <div className="flex-1 rounded-xl overflow-hidden relative bg-plum-dark/60">
-            {[...Array(6)].map((_, i) => (
-              <div key={i} className="absolute rounded-full border" style={{
-                width: `${80 + i * 30}px`, height: `${40 + i * 20}px`,
-                left: '50%', top: '50%', transform: 'translate(-50%,-50%)',
-                borderColor: `rgba(212,175,55,${0.5 - i * 0.07})`,
-              }} />
-            ))}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-3 h-3 rounded-full bg-gold animate-pulse" />
-            </div>
-            <div className="absolute bottom-2 left-2 right-2 bg-plum/80 rounded-lg p-2">
-              <div className="text-[9px] text-gold/80 font-medium">Risk Level</div>
-              <div className="w-full h-1.5 bg-plum-dark rounded-full mt-1">
-                <div className="w-3/4 h-full rounded-full bg-gradient-to-r from-gold-dim to-gold" />
-              </div>
-            </div>
-          </div>
-          <div className="space-y-1.5">
-            {['Zone A — High', 'Zone C — Medium'].map((z, i) => (
-              <div key={i} className="flex items-center gap-2 bg-plum-dark/40 rounded-lg px-2 py-1.5">
-                <div className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-red-400' : 'bg-yellow-400'}`} />
-                <span className="text-[9px] text-ivory/70">{z}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    ),
-    coolcity: (
-      <div className="w-full h-full" style={{
-        background: 'linear-gradient(135deg, #0D2233 0%, #1A3A4A 50%, #0F4C5C 100%)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '16px'
-      }}>
-        <div className="w-72 h-48 rounded-2xl border border-teal-400/20 overflow-hidden relative" style={{ background: 'rgba(13,34,51,0.7)' }}>
-          <div className="absolute inset-0 grid grid-cols-8 grid-rows-5">
-            {[...Array(40)].map((_, i) => {
-              const heat = ((i * 7 + 3) % 10) / 10
-              const color = heat > 0.7 ? '#FF6B6B' : heat > 0.4 ? '#FFE66D' : heat > 0.2 ? '#4ECDC4' : '#1A3A4A'
-              return <div key={i} style={{ backgroundColor: color, opacity: 0.7 }} />
-            })}
-          </div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="bg-slate-900/80 rounded-xl p-3 text-center backdrop-blur">
-              <div className="text-xs text-teal-400 font-medium">Heat Index</div>
-              <div className="text-2xl font-bold text-white">42°C</div>
-              <div className="text-[10px] text-red-400">Critical Zone</div>
-            </div>
-          </div>
-        </div>
-        <div className="flex gap-2">
-          {[['Low', '#4ECDC4'], ['Med', '#FFE66D'], ['High', '#FF6B6B']].map(([l, c]) => (
-            <div key={l} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs" style={{ background: 'rgba(255,255,255,0.07)', color: c }}>
-              <div className="w-2 h-2 rounded-full" style={{ backgroundColor: c as string }} />
-              {l}
-            </div>
-          ))}
-        </div>
-      </div>
-    ),
-    trustchain: (
-      <div className="w-full h-full" style={{
-        background: 'linear-gradient(135deg, #0F0F1A 0%, #1C1C2E 50%, #252540 100%)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center'
-      }}>
-        <div className="w-64 rounded-2xl p-5 space-y-4" style={{ background: 'rgba(124,58,237,0.08)', border: '1px solid rgba(124,58,237,0.2)' }}>
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-purple-300 font-medium tracking-wider uppercase">TrustChain</span>
-            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          </div>
-          <div className="text-white font-semibold text-sm">Organic Cotton Tee</div>
-          <div className="space-y-2">
-            {['🌱 Farm — Gujarat, India', '🏭 Mill — Tirupur, TN', '✅ Certified Organic', '🚢 Shipped — Oct 2024'].map((step, i) => (
-              <div key={i} className="flex items-center gap-2 text-[11px] text-slate-300 py-1.5 px-3 rounded-lg" style={{ background: 'rgba(124,58,237,0.1)' }}>
-                {step}
-              </div>
-            ))}
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center">
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#4ade80" strokeWidth="1.5" strokeLinecap="round"/></svg>
-            </div>
-            <span className="text-[10px] text-emerald-400">Verified Origin · Blockchain Confirmed</span>
-          </div>
-        </div>
-      </div>
-    ),
-    farmlink: (
-      <div className="w-full h-full" style={{
-        background: 'linear-gradient(135deg, #0D1F0D 0%, #1A2F1A 50%, #243824 100%)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', flexWrap: 'wrap', padding: '20px'
-      }}>
-        <div className="w-40 rounded-2xl p-4 space-y-3" style={{ background: 'rgba(74,222,128,0.07)', border: '1px solid rgba(74,222,128,0.15)' }}>
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center text-base">🌾</div>
-            <div>
-              <div className="text-xs text-green-400 font-medium">Wheat</div>
-              <div className="text-[10px] text-gray-400">5 tonnes</div>
-            </div>
-          </div>
-          <div className="text-green-300 font-bold text-lg">₹2,100<span className="text-xs font-normal text-gray-400">/q</span></div>
-          <div className="w-full h-1 rounded-full bg-green-900"><div className="w-2/3 h-full rounded-full bg-green-400" /></div>
-          <div className="text-[9px] text-gray-400">2 buyers interested</div>
-        </div>
-        <div className="w-40 rounded-2xl p-4 space-y-3" style={{ background: 'rgba(252,211,77,0.06)', border: '1px solid rgba(252,211,77,0.12)' }}>
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] text-yellow-400 font-medium">Weather</span>
-            <span className="text-base">☀️</span>
-          </div>
-          <div className="text-white font-bold text-xl">28°C</div>
-          <div className="text-[10px] text-gray-400">Good for harvest</div>
-        </div>
-      </div>
-    ),
-    samaanai: (
-      <div className="w-full h-full" style={{
-        background: 'linear-gradient(135deg, #0D0D1A 0%, #1A1A2E 50%, #252545 100%)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center'
-      }}>
-        <div className="w-64 rounded-3xl p-5 space-y-4" style={{ background: 'rgba(246,166,35,0.07)', border: '1px solid rgba(246,166,35,0.18)' }}>
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center text-base">🤝</div>
-            <div>
-              <div className="text-xs text-amber-300 font-medium tracking-wider">Samaan AI</div>
-              <div className="text-[10px] text-gray-400">Your relocation guide</div>
-            </div>
-          </div>
-          <div className="space-y-2">
-            {[
-              { msg: 'I just arrived in Bengaluru. Need shelter.', from: 'user' },
-              { msg: 'Found 3 verified shelters near Majestic. Tap to see.', from: 'ai' },
-              { msg: 'Also showing free legal aid & job board nearby.', from: 'ai' },
-            ].map((m, i) => (
-              <div key={i} className={`text-[11px] px-3 py-2 rounded-2xl max-w-[85%] ${m.from === 'user' ? 'ml-auto' : 'mr-auto'}`}
-                style={{ background: m.from === 'user' ? 'rgba(246,166,35,0.2)' : 'rgba(255,255,255,0.06)', color: m.from === 'user' ? '#FDE68A' : '#E5E7EB' }}>
-                {m.msg}
-              </div>
-            ))}
-          </div>
-          <div className="flex gap-2">
-            {['Shelter', 'Legal Aid', 'Jobs'].map((t) => (
-              <span key={t} className="text-[9px] px-2 py-1 rounded-full" style={{ background: 'rgba(246,166,35,0.12)', color: '#F6A623', border: '1px solid rgba(246,166,35,0.2)' }}>{t}</span>
-            ))}
-          </div>
-        </div>
-      </div>
-    ),
-    uidai: (
-      <div className="w-full h-full" style={{
-        background: 'linear-gradient(135deg, #0D1520 0%, #1A2030 50%, #253045 100%)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center'
-      }}>
-        <div className="w-72 space-y-3">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="2" stroke="#60A5FA" strokeWidth="1.2"/><path d="M5 7h6M5 10h4" stroke="#60A5FA" strokeWidth="1.2" strokeLinecap="round"/></svg>
-            </div>
-            <div>
-              <div className="text-xs text-blue-300 font-medium">UIDAI Lifecycle Audit</div>
-              <div className="text-[10px] text-gray-400">47 violations found</div>
-            </div>
-          </div>
-          {[
-            { step: 'Enrollment', issues: 12, c: '#EF4444', w: '85%' },
-            { step: 'Update Portal', issues: 19, c: '#F97316', w: '100%' },
-            { step: 'Operator UI', issues: 16, c: '#F59E0B', w: '78%' },
-          ].map((item) => (
-            <div key={item.step} className="rounded-xl p-3 space-y-2" style={{ background: 'rgba(96,165,250,0.06)', border: '1px solid rgba(96,165,250,0.12)' }}>
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] text-slate-200 font-medium">{item.step}</span>
-                <span className="text-[10px]" style={{ color: item.c }}>{item.issues} issues</span>
-              </div>
-              <div className="h-1.5 rounded-full bg-slate-700">
-                <div className="h-full rounded-full" style={{ width: item.w, backgroundColor: item.c }} />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    ),
-    naturalsbeautyos: (
-      <div className="w-full h-full" style={{
-        background: 'linear-gradient(135deg, #1A0A14 0%, #2A1226 50%, #3D1535 100%)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center'
-      }}>
-        <div className="w-56 rounded-3xl p-5 space-y-4" style={{ background: 'rgba(244,114,182,0.07)', border: '1px solid rgba(244,114,182,0.2)' }}>
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center text-sm">✨</div>
-            <div>
-              <div className="text-xs text-pink-300 font-medium">Naturals Beauty OS</div>
-              <div className="text-[10px] text-gray-400">Your colour story</div>
-            </div>
-          </div>
-          <div className="flex gap-2 flex-wrap">
-            {['#2C1503','#4A2010','#8B4513','#C68642','#F0C080'].map((c) => (
-              <div key={c} className="w-8 h-8 rounded-full border-2 border-white/10" style={{ backgroundColor: c }} />
-            ))}
-          </div>
-          <div className="rounded-xl p-3 space-y-1" style={{ background: 'rgba(244,114,182,0.1)' }}>
-            <div className="text-[10px] text-pink-300 font-medium">Your Recommendations</div>
-            {['Warm Nude · Lip Gloss', 'Bronze Contour · Foundation', 'Copper · Eye Shadow'].map((r) => (
-              <div key={r} className="text-[10px] text-gray-300">{r}</div>
-            ))}
-          </div>
-        </div>
-      </div>
-    ),
-    tidex: (
-      <div className="w-full h-full" style={{
-        background: 'linear-gradient(135deg, #080F1A 0%, #0F1A2E 50%, #1A2A40 100%)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center'
-      }}>
-        <div className="w-64 space-y-3">
-          <div className="flex items-center gap-2 mb-2">
-            <div className="w-8 h-8 rounded-lg bg-sky-500/20 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z" stroke="#38BDF8" strokeWidth="1.2" strokeLinejoin="round"/></svg>
-            </div>
-            <div>
-              <div className="text-xs text-sky-300 font-medium">TIDEX Exchange</div>
-              <div className="text-[10px] text-gray-400">IP Marketplace</div>
-            </div>
-          </div>
-          {[
-            { name: 'Neural Style Transfer v2', type: 'Algorithm', price: '0.8 ETH', status: 'Licensed' },
-            { name: 'Crop Disease Detection', type: 'Model', price: '1.2 ETH', status: 'Available' },
-            { name: 'Climate Prediction API', type: 'Dataset', price: '0.5 ETH', status: 'Licensed' },
-          ].map((item) => (
-            <div key={item.name} className="rounded-xl p-3" style={{ background: 'rgba(56,189,248,0.06)', border: '1px solid rgba(56,189,248,0.12)' }}>
-              <div className="flex items-start justify-between gap-2">
-                <div>
-                  <div className="text-[11px] text-slate-200 font-medium leading-tight">{item.name}</div>
-                  <div className="text-[9px] text-gray-500 mt-0.5">{item.type}</div>
-                </div>
-                <div className="text-right flex-shrink-0">
-                  <div className="text-[11px] text-sky-300 font-medium">{item.price}</div>
-                  <div className="text-[9px]" style={{ color: item.status === 'Licensed' ? '#4ade80' : '#94a3b8' }}>{item.status}</div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    ),
-  }
-  return visuals[project.id] || <div className="w-full h-full bg-graphite-mid" />
+  const imageSrc = `/projects/${project.id}.jpg`
+
+  return (
+    <div className="relative w-full h-full overflow-hidden bg-graphite-mid group/visual">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={imageSrc}
+        alt={`${project.title} — ${project.subtitle}`}
+        className="w-full h-full object-cover object-center transform transition-transform duration-700 ease-out group-hover:scale-105"
+        loading="lazy"
+      />
+      {/* Ambient gradient overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none transition-opacity duration-500 opacity-50 group-hover:opacity-20"
+        style={{
+          background: 'linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(15,15,18,0.2) 50%, rgba(15,15,18,0.75) 100%)',
+        }}
+      />
+    </div>
+  )
 }
 
 /* ── Journey Map ──────────────────────────────────────────────────────── */
