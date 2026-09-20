@@ -133,8 +133,6 @@ export default function Contact() {
             <Reveal key={link.label} direction="up" delay={0.35 + i * 0.07}>
               <motion.a
                 href={link.href}
-                target={link.href.startsWith('http') ? '_blank' : undefined}
-                rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                 className="group flex flex-col gap-3 p-5 rounded-2xl glass transition-all duration-400"
                 style={{ border: '1px solid rgba(255,255,255,0.05)' }}
                 whileHover={{
